@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #f0f4ff, #d9e4ff);
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .result-box {
+            background-color: #e3f2fd;
+            border: 2px solid #90caf9;
+            padding: 30px;
+            border-radius: 12px;
+            display: inline-block;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .result-box h2 {
+            color: #1976d2;
+        }
+
+        .icon {
+            font-size: 20px;
+            margin-right: 6px;
+        }
+
+        .predict-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: linear-gradient(to right, #4CAF50, #2e7d32);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .predict-btn:hover {
+            background: linear-gradient(to right, #388E3C, #1b5e20);
+            transform: scale(1.05);
+        }
+
+        .note {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-box">
+        <h2>🔍 Prediction Result</h2>
+
+        <p><span class="icon">🧠</span><strong>Raw Prediction:</strong> {{ prediction }}</p>
+        <p><span class="icon">📊</span><strong>Raw Probability:</strong> {{ probability }}</p>
+
+        <p><span class="icon">📌</span><strong>Churn Status:</strong> 
+            {% if prediction == 1 %}
+                <span style="color: #d32f2f; font-weight: bold;">Will Churn</span>
+            {% else %}
+                <span style="color: #388e3c; font-weight: bold;">Will Not Churn</span>
+            {% endif %}
+        </p>
+
+        <p><span class="icon">🎯</span><strong>Churn Probability:</strong> {{ probability|floatformat:2 }}%</p>
+
+        <a href="{% url 'churn_predict' %}" class="predict-btn">🔙 Predict Again</a>
+    </div>
+</body>
+</html>
